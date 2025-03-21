@@ -1,0 +1,7 @@
+ sudo apt-get update
+ 
+sudo  apt-get  install  nasm
+
+nasm -f elf testing.asm
+
+ld -m elf_i386 -o testing testing.o
