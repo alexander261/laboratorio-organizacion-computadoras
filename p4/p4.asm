@@ -1,28 +1,17 @@
-%include "../LIB/pc_io.inc"
+%include "../LIB/pc_io.inc"  	; incluir declaraciones de procedimiento externos
+								; que se encuentran en la biblioteca libpc_io.a
 
 section	.text
-	global _start       ;must be declared for using gcc
-_start:                     ;tell linker entry point
-	mov	edx, len    ;message length
-	mov	ecx, msg    ;message to write
-	mov	ebx, 1	    ;file descriptor (stdout)
-	mov	eax, 4	    ;system call number (sys_write)
-	int	0x80        ;call kernel
+	global _start       ;referencia para inicio de programa
+	
+_start:                   
+	mov edx, msg		; edx = dirección de la cadena msg
+	call puts			; imprime cadena msg terminada en valor nulo (0)
 
-	mov al,"x"
-	call putchar
-
-
-
-	call clrscr
-
-	mov edx,msg
-	call puts
-
-	mov	eax, 1	    ;system call number (sys_exit)
-	int	0x80        ;call kernel
+	mov	eax, 1	    	; seleccionar llamada al sistema para fin de programa
+	int	0x80        	; llamada al sistema - fin de programa
 
 section	.data
+msg	db  'abcdefghijklmnopqrstuvwxyz0123456789',0xa,0 
 
-msg	db	'Hello, world!',0xa	;our dear string
-len	equ	$ - msg			;length of our dear string
+
