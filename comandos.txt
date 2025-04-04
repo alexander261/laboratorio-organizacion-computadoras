@@ -11,3 +11,25 @@ ld -m elf_i386 -o testing testing.o ./LIB/libpc_io.a
 ld -m elf_i386 -o testing testing.o ../LIB/libpc_io.a
 
 
+nasm -f elf inciso-e.asm
+ ld -m elf_i386 -o inciso-e inciso-e.o ../LIB/libpc_io.a
+ ./inciso-e
+
+
+ ld -m elf_i386 print_hex.o ../LIB/libpc_iox.a -o print_hex
+  nasm -f elf print_hex.asm
+
+
+ld -m elf_i386 p5.o ../LIB/libpc_iox.a -o p5
+nasm -f elf p5.asm
+./p5
+
+  
+
+
+
+
+
+
+
+

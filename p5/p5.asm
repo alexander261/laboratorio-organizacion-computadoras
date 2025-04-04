@@ -7,55 +7,110 @@ section	.text
 _start:                     ;tell linker entry point
 
     ;--------------------------------------INCISO A
-
-    mov ebx,0xA
-    mov eax,0x1
     
-    add ebx,eax
+    mov ebx, 0x5C4B2A60
+    add ebx, 0x02207511
 
-    mov eax,ebx 
+	mov eax,ebx
+	call pHex_dw
+
+	mov ebx,eax
 
 
-    call pHex_dw
 
-    mov ebx,eax 
-
-	mov al,10 
+	mov al,10
 	call putchar
+    ;--------------------------------------INCISO B.
 
-    ;-------------------------------------- INCISO B 
 
     push bx
 
-    call pHex_dw
+    pop ax
+    movzx eax, ax
+    call pHex_w
 
+    push bx
 
-	mov al,10 
+	mov al,10
 	call putchar
-    ;-------------------------------------- INCISO C
+    ;--------------------------------------INCISO C
 
-    mov al, 8
-    mul bl
 
-    call pHex_dw
+    mov al, bl
 
-    mov [N],bl
+    ;limpiar AH para multiplicar sin signo
+    mov ah, 0
+    mov cl, 8
+    
+    ; AL * CL  el resultado se guardaa en AX
+    mul cl
 
-	mov al,10 
+
+    mov [N], ax
+
+
+    movzx eax, word [N]
+    call pHex_w
+
+
+
+	mov al,10
+	call putchar
+    ;--------------------------------------INCISO D
+
+    inc word [N]
+    
+    movzx eax, word [N]
+    call pHex_w
+
+
+	mov al,10
 	call putchar
 
-    ;-------------------------------------- INCISO D
+    ;--------------------------------------INCISO E
 
-    inc byte [N]
-    call pHex_dw
 
-	mov al,10 
+
+    mov ax, bx 
+    mov cl, 0xFF 
+
+    ; AX / CL 
+    ;el valor se almacena en AL = cociente y AH = residuo
+    div cl                 
+
+    ;El cociente ya está en AL
+    call pHex_b
+
+
+    mov al,10
 	call putchar
 
-    ;-------------------------------------- INCISO E
+
+    ;el residuo está en AH
+    mov al, ah
+    call pHex_b
 
 
-	mov al,10       ; cambio de linea
+    mov al,10
+	call putchar
+    ;--------------------------------------INCISO F
+
+    movzx ax, word [N]
+    add al, ah
+
+    mov [N], ax
+
+    dec word [N]
+
+
+	mov al,10
+	call putchar
+    ;--------------------------------------INCISO G
+
+    pop ax
+
+
+	mov al,10
 	call putchar
 
 	mov eax, 1
@@ -64,4 +119,4 @@ _start:                     ;tell linker entry point
 
 
 section	.data
-N	db 0 
+N	dw 0 
