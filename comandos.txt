@@ -24,9 +24,15 @@ ld -m elf_i386 p5.o ../LIB/libpc_iox.a -o p5
 nasm -f elf p5.asm
 ./p5
 
-  
 
+ld -m elf_i386 p6.o pBin.o ../LIB/libpc_iox.a -o p6
 
+ld -m elf_i386 p6.o pBin.o ../LIB/pbin.o -o p6
+nasm -f elf p6.asm
+./p6
+
+ nasm -f elf p6.asm
+ld -m elf_i386 p6.o pbin.o ../LIB/libpc_iox.a -o p6
 
 
 
