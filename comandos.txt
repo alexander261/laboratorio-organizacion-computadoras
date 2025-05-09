@@ -36,6 +36,6 @@ ld -m elf_i386 p6.o pbin.o ../LIB/libpc_iox.a -o p6
 
 
 
-
-
-
+sudo apt update
+sudo apt install nasm -y
+sudo apt-get install libc6-dev-i386 -y
